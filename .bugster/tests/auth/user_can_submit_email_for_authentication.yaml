@@ -1,0 +1,10 @@
+name: User can submit email for authentication
+page: auth
+page_path: app/auth/page.tsx
+task: Test email submission functionality in authentication form
+steps:
+- Navigate to authentication page
+- Enter valid email address in the email input field
+- Click submit button
+- Verify form submission and feedback message
+expected_result: Email form submits successfully and shows appropriate feedback

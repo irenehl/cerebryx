@@ -1,0 +1,10 @@
+name: User can start study session from study page
+page: study
+page_path: app/study/page.tsx
+task: Verify study session initialization workflow
+steps:
+- Navigate to study page
+- Fill in required study material input fields
+- Click start study session button
+- Verify navigation to reading phase
+expected_result: Study session starts successfully with proper input validation

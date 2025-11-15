@@ -1,0 +1,10 @@
+name: User can navigate from landing page to authentication
+page: landing
+page_path: app/page.tsx
+task: Verify navigation from landing page to authentication page
+steps:
+- Visit the landing page
+- Click on the get started or sign up button
+- Verify redirect to authentication page
+expected_result: User is redirected to authentication page when clicking get started
+  button

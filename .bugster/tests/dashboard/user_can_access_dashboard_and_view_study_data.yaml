@@ -1,0 +1,10 @@
+name: User can access dashboard and view study data
+page: dashboard
+page_path: app/dashboard/page.tsx
+task: Test dashboard page loading and data display
+steps:
+- Navigate to dashboard page
+- Verify page loads without errors
+- Check that study statistics and data are displayed
+- Verify navigation elements are functional
+expected_result: Dashboard loads successfully and displays user study statistics

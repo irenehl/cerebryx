@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "timestamp": 1763164764577,
+    "git": {
+      "branch": "main",
+      "commit": "405ef0bb7ccb500810ccddbd2daa3ff4017252da"
+    }
+  },
+  "data": {
+    "frameworks": [
+      {
+        "id": "next",
+        "name": "Next.js",
+        "dir_path": "/Users/sgranados/Desktop/cerebryx/"
+      }
+    ],
+    "commands": {
+      "test": {
+        "firstExecuted": true
+      }
+    }
+  }
+}

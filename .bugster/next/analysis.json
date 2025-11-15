@@ -1,0 +1,515 @@
+{
+  "metadata": {
+    "timestamp": 1763164765.441474,
+    "git": {
+      "branch": "main",
+      "commit": "405ef0bb7ccb500810ccddbd2daa3ff4017252da"
+    }
+  },
+  "data": {
+    "framework": {
+      "id": "next",
+      "name": "Next.js",
+      "dir_path": "/Users/sgranados/Desktop/cerebryx/"
+    },
+    "router_type": "app",
+    "stats": {
+      "fileCount": 88,
+      "routeCount": 12,
+      "apiRouteCount": 10,
+      "layoutCount": 1
+    },
+    "layouts": [
+      {
+        "name": "RootLayout",
+        "relative_file_path": "app/layout.tsx",
+        "relative_dir_path": "app",
+        "content": "import type { Metadata } from 'next'\nimport { Space_Grotesk } from 'next/font/google'\nimport './globals.css'\nimport { SessionProvider } from '@/providers/SessionProvider'\nimport { AuthProvider } from '@/providers/AuthProvider'\nimport { ClarityProvider } from '@/providers/ClarityProvider'\nimport { ThemeProvider } from '@/providers/ThemeProvider'\nimport { SidebarProvider } from '@/contexts/SidebarContext'\nimport { AccessibilityProvider } from '@/contexts/AccessibilityContext'\nimport { Toaster } from '@/components/ui/toaster'\nimport AppLayout from '@/components/AppLayout'\nimport SetupWrapper from '@/components/setup/SetupWrapper'\nimport { AccessibilityToolbar } from '@/components/AccessibilityToolbar'\n\nconst spaceGrotesk = Space_Grotesk({\n  subsets: ['latin'],\n  variable: '--font-sans',\n  display: 'swap',\n  weight: ['300', '400', '500', '600', '700'],\n})\n\nexport const metadata: Metadata = {\n  title: 'Cerebryx \u2022 Study Timer & Quiz',\n  description: 'Think deeper, remember longer.',\n}\n\nexport default function RootLayout({\n  children,\n}: {\n  children: React.ReactNode\n}) {\n  return (\n    <html lang=\"en\" suppressHydrationWarning>\n      <body\n        className={`${spaceGrotesk.variable} font-sans`}\n        suppressHydrationWarning={true}\n      >\n        <ClarityProvider>\n          <ThemeProvider\n            attribute=\"class\"\n            defaultTheme=\"light\"\n            enableSystem={false}\n          >\n            <AccessibilityProvider>\n              <AuthProvider>\n                <SessionProvider>\n                  <SidebarProvider>\n                    <SetupWrapper>\n                      <AppLayout>{children}</AppLayout>\n                    </SetupWrapper>\n                    <AccessibilityToolbar />\n                    <Toaster />\n                  </SidebarProvider>\n                </SessionProvider>\n              </AuthProvider>\n            </AccessibilityProvider>\n          </ThemeProvider>\n        </ClarityProvider>\n      </body>\n    </html>\n  )\n}\n\n",
+        "components": [
+          "RootLayout",
+          "ClarityProvider",
+          "ThemeProvider",
+          "AccessibilityProvider",
+          "AuthProvider",
+          "SessionProvider",
+          "SidebarProvider",
+          "SetupWrapper",
+          "AppLayout",
+          "AccessibilityToolbar",
+          "Toaster"
+        ]
+      }
+    ],
+    "routes": [
+      {
+        "routePath": "/(flow)/quiz",
+        "relativeFilePath": "app/(flow)/quiz/page.tsx",
+        "layoutChain": [
+          "RootLayout"
+        ],
+        "components": [
+          "QuizPage",
+          "QuizForm"
+        ],
+        "hasParams": false,
+        "hasForm": false,
+        "hooks": [],
+        "eventHandlers": [],
+        "featureFlags": []
+      },
+      {
+        "routePath": "/(flow)/read",
+        "relativeFilePath": "app/(flow)/read/page.tsx",
+        "layoutChain": [
+          "RootLayout"
+        ],
+        "components": [
+          "ReadPage",
+          "Reader"
+        ],
+        "hasParams": false,
+        "hasForm": false,
+        "hooks": [],
+        "eventHandlers": [],
+        "featureFlags": []
+      },
+      {
+        "routePath": "/(flow)/results",
+        "relativeFilePath": "app/(flow)/results/page.tsx",
+        "layoutChain": [
+          "RootLayout"
+        ],
+        "components": [
+          "ResultsPage",
+          "ResultsView"
+        ],
+        "hasParams": false,
+        "hasForm": false,
+        "hooks": [],
+        "eventHandlers": [],
+        "featureFlags": []
+      },
+      {
+        "routePath": "/auth/callback",
+        "relativeFilePath": "app/auth/callback/page.tsx",
+        "layoutChain": [
+          "RootLayout"
+        ],
+        "components": [
+          "AuthCallbackPage"
+        ],
+        "hasParams": false,
+        "hasForm": false,
+        "hooks": [
+          "useSearchParams",
+          "useRouter",
+          "useEffect",
+          "useToast",
+          "useState"
+        ],
+        "eventHandlers": [
+          "handleAuthCallback"
+        ],
+        "featureFlags": []
+      },
+      {
+        "routePath": "/auth",
+        "relativeFilePath": "app/auth/page.tsx",
+        "layoutChain": [
+          "RootLayout"
+        ],
+        "components": [
+          "AuthPage",
+          "Link",
+          "BookOpen",
+          "Card",
+          "CardHeader",
+          "CardTitle",
+          "CardDescription",
+          "CardContent",
+          "Button",
+          "Label",
+          "Mail",
+          "Input",
+          "ArrowRight",
+          "Lock"
+        ],
+        "hasParams": false,
+        "hasForm": true,
+        "hooks": [
+          "useSearchParams",
+          "useRouter",
+          "useAuth",
+          "useEffect",
+          "useToast",
+          "useState"
+        ],
+        "eventHandlers": [
+          "onSubmit",
+          "onClick",
+          "handleOTPSubmit",
+          "handleEmailSubmit",
+          "handleGoogleSignIn",
+          "onChange"
+        ],
+        "featureFlags": []
+      },
+      {
+        "routePath": "/dashboard",
+        "relativeFilePath": "app/dashboard/page.tsx",
+        "layoutChain": [
+          "RootLayout"
+        ],
+        "components": [
+          "DashboardPage",
+          "DashboardView"
+        ],
+        "hasParams": false,
+        "hasForm": false,
+        "hooks": [],
+        "eventHandlers": [],
+        "featureFlags": []
+      },
+      {
+        "routePath": "/",
+        "relativeFilePath": "app/page.tsx",
+        "layoutChain": [
+          "RootLayout"
+        ],
+        "components": [
+          "LandingPage",
+          "Zap",
+          "Link",
+          "Button",
+          "ArrowRight",
+          "Card",
+          "CardHeader",
+          "BookOpen",
+          "CardTitle",
+          "CardDescription",
+          "Brain",
+          "Clock",
+          "Target",
+          "Shield",
+          "CardContent",
+          "CheckCircle2"
+        ],
+        "hasParams": false,
+        "hasForm": false,
+        "hooks": [],
+        "eventHandlers": [],
+        "featureFlags": []
+      },
+      {
+        "routePath": "/settings",
+        "relativeFilePath": "app/settings/page.tsx",
+        "layoutChain": [
+          "RootLayout"
+        ],
+        "components": [
+          "SettingsPage",
+          "SettingsView"
+        ],
+        "hasParams": false,
+        "hasForm": false,
+        "hooks": [],
+        "eventHandlers": [],
+        "featureFlags": []
+      },
+      {
+        "routePath": "/study/(flow)/quiz",
+        "relativeFilePath": "app/study/(flow)/quiz/page.tsx",
+        "layoutChain": [
+          "RootLayout"
+        ],
+        "components": [
+          "QuizPage",
+          "QuizForm"
+        ],
+        "hasParams": false,
+        "hasForm": false,
+        "hooks": [],
+        "eventHandlers": [],
+        "featureFlags": []
+      },
+      {
+        "routePath": "/study/(flow)/read",
+        "relativeFilePath": "app/study/(flow)/read/page.tsx",
+        "layoutChain": [
+          "RootLayout"
+        ],
+        "components": [
+          "ReadPage",
+          "Reader"
+        ],
+        "hasParams": false,
+        "hasForm": false,
+        "hooks": [],
+        "eventHandlers": [],
+        "featureFlags": []
+      },
+      {
+        "routePath": "/study/(flow)/results",
+        "relativeFilePath": "app/study/(flow)/results/page.tsx",
+        "layoutChain": [
+          "RootLayout"
+        ],
+        "components": [
+          "ResultsPage",
+          "ResultsView"
+        ],
+        "hasParams": false,
+        "hasForm": false,
+        "hooks": [],
+        "eventHandlers": [],
+        "featureFlags": []
+      },
+      {
+        "routePath": "/study",
+        "relativeFilePath": "app/study/page.tsx",
+        "layoutChain": [
+          "RootLayout"
+        ],
+        "components": [
+          "StudyPage",
+          "InputStep"
+        ],
+        "hasParams": false,
+        "hasForm": false,
+        "hooks": [],
+        "eventHandlers": [],
+        "featureFlags": []
+      }
+    ],
+    "api_routes": [
+      {
+        "routePath": "/api/analyze-answer",
+        "relativeFilePath": "app/api/analyze-answer/route.ts",
+        "methods": [
+          "POST"
+        ],
+        "hasValidation": false,
+        "deps": [
+          "NextRequest",
+          "NextResponse",
+          "detectLanguage",
+          "getLanguageName"
+        ]
+      },
+      {
+        "routePath": "/api/auth/callback",
+        "relativeFilePath": "app/api/auth/callback/route.ts",
+        "methods": [
+          "GET"
+        ],
+        "hasValidation": false,
+        "deps": [
+          "createServerClient",
+          "redirect"
+        ]
+      },
+      {
+        "routePath": "/api/generate-questions",
+        "relativeFilePath": "app/api/generate-questions/route.ts",
+        "methods": [
+          "POST"
+        ],
+        "hasValidation": true,
+        "deps": [
+          "NextRequest",
+          "NextResponse",
+          "Question",
+          "detectLanguage",
+          "getLanguageName"
+        ]
+      },
+      {
+        "routePath": "/api/trial/check",
+        "relativeFilePath": "app/api/trial/check/route.ts",
+        "methods": [
+          "POST",
+          "GET"
+        ],
+        "hasValidation": false,
+        "deps": [
+          "NextRequest",
+          "NextResponse",
+          "createServerClient"
+        ]
+      },
+      {
+        "routePath": "/api/trial/increment",
+        "relativeFilePath": "app/api/trial/increment/route.ts",
+        "methods": [
+          "POST",
+          "GET"
+        ],
+        "hasValidation": false,
+        "deps": [
+          "NextRequest",
+          "NextResponse",
+          "createServerClient"
+        ]
+      },
+      {
+        "routePath": "/api/analyze-answer",
+        "relativeFilePath": "app/api/analyze-answer/route.ts",
+        "methods": [
+          "POST"
+        ],
+        "hasValidation": false,
+        "deps": [
+          "NextRequest",
+          "NextResponse",
+          "detectLanguage",
+          "getLanguageName"
+        ]
+      },
+      {
+        "routePath": "/api/auth/callback",
+        "relativeFilePath": "app/api/auth/callback/route.ts",
+        "methods": [
+          "GET"
+        ],
+        "hasValidation": false,
+        "deps": [
+          "createServerClient",
+          "redirect"
+        ]
+      },
+      {
+        "routePath": "/api/generate-questions",
+        "relativeFilePath": "app/api/generate-questions/route.ts",
+        "methods": [
+          "POST"
+        ],
+        "hasValidation": true,
+        "deps": [
+          "NextRequest",
+          "NextResponse",
+          "Question",
+          "detectLanguage",
+          "getLanguageName"
+        ]
+      },
+      {
+        "routePath": "/api/trial/check",
+        "relativeFilePath": "app/api/trial/check/route.ts",
+        "methods": [
+          "POST",
+          "GET"
+        ],
+        "hasValidation": false,
+        "deps": [
+          "NextRequest",
+          "NextResponse",
+          "createServerClient"
+        ]
+      },
+      {
+        "routePath": "/api/trial/increment",
+        "relativeFilePath": "app/api/trial/increment/route.ts",
+        "methods": [
+          "POST",
+          "GET"
+        ],
+        "hasValidation": false,
+        "deps": [
+          "NextRequest",
+          "NextResponse",
+          "createServerClient"
+        ]
+      }
+    ],
+    "all_paths": [
+      "app/(flow)/quiz/page.tsx",
+      "app/(flow)/read/page.tsx",
+      "app/(flow)/results/page.tsx",
+      "app/api/analyze-answer/route.ts",
+      "app/api/auth/callback/route.ts",
+      "app/api/generate-questions/route.ts",
+      "app/api/trial/check/route.ts",
+      "app/api/trial/increment/route.ts",
+      "app/auth/callback/page.tsx",
+      "app/auth/page.tsx",
+      "app/dashboard/page.tsx",
+      "app/layout.tsx",
+      "app/page.tsx",
+      "app/settings/page.tsx",
+      "app/study/(flow)/quiz/page.tsx",
+      "app/study/(flow)/read/page.tsx",
+      "app/study/(flow)/results/page.tsx",
+      "app/study/page.tsx",
+      "components/AccessibilityToolbar.tsx",
+      "components/AppLayout.tsx",
+      "components/LandingNavbar.tsx",
+      "components/Navbar.tsx",
+      "components/Navigation.tsx",
+      "components/Sidebar.tsx",
+      "components/ThemeToggle.tsx",
+      "components/branding/CerebryxLogo.tsx",
+      "components/dashboard/DashboardSkeleton.tsx",
+      "components/dashboard/DashboardView.tsx",
+      "components/history/HistoryView.tsx",
+      "components/input/InputStep.tsx",
+      "components/quiz/QuestionCountPreview.tsx",
+      "components/quiz/QuestionRangeConfig.tsx",
+      "components/quiz/QuizForm.tsx",
+      "components/quiz/QuizSkeleton.tsx",
+      "components/reader/Reader.tsx",
+      "components/reader/Timer.tsx",
+      "components/results/ResultsView.tsx",
+      "components/settings/SettingsView.tsx",
+      "components/setup/FirstTimeSetup.tsx",
+      "components/setup/SetupWrapper.tsx",
+      "components/trial/RegistrationModal.tsx",
+      "components/ui/alert.tsx",
+      "components/ui/badge.tsx",
+      "components/ui/button.tsx",
+      "components/ui/card.tsx",
+      "components/ui/checkbox.tsx",
+      "components/ui/dialog.tsx",
+      "components/ui/dropdown-menu.tsx",
+      "components/ui/input.tsx",
+      "components/ui/label.tsx",
+      "components/ui/progress.tsx",
+      "components/ui/radio-group.tsx",
+      "components/ui/select.tsx",
+      "components/ui/separator.tsx",
+      "components/ui/skeleton.tsx",
+      "components/ui/slider.tsx",
+      "components/ui/switch.tsx",
+      "components/ui/tabs.tsx",
+      "components/ui/textarea.tsx",
+      "components/ui/toast.tsx",
+      "components/ui/toaster.tsx",
+      "contexts/AccessibilityContext.tsx",
+      "contexts/SidebarContext.tsx",
+      "hooks/use-ringtone.ts",
+      "hooks/use-toast.ts",
+      "hooks/use-window.ts",
+      "hooks/useHistory.ts",
+      "hooks/useTrial.ts",
+      "lib/clarity.ts",
+      "lib/fingerprint.ts",
+      "lib/language.ts",
+      "lib/openai.ts",
+      "lib/pdf.ts",
+      "lib/supabase/client.ts",
+      "lib/supabase/server.ts",
+      "lib/utils.ts",
+      "next-env.d.ts",
+      "next.config.ts",
+      "postcss.config.js",
+      "providers/AuthProvider.tsx",
+      "providers/ClarityProvider.tsx",
+      "providers/SessionProvider.tsx",
+      "providers/ThemeProvider.tsx",
+      "tailwind.config.ts",
+      "types/history.ts",
+      "types/quiz.ts",
+      "types/session.ts",
+      "types/trial.ts"
+    ]
+  }
+}
