@@ -8,10 +8,8 @@ interface AuthContextType {
   user: User | null
   session: Session | null
   loading: boolean
-  signInWithGoogle: () => Promise<void>
   signOut: () => Promise<void>
   signInWithOTP: (email: string) => Promise<void>
-  signInWithMagicLink: (email: string) => Promise<void>
   verifyOTP: (email: string, token: string) => Promise<void>
 }
 
@@ -42,39 +40,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => subscription.unsubscribe()
   }, [])
 
-  const signInWithGoogle = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
-      },
-    })
-    if (error) throw error
-  }
-
   const signOut = async () => {
     const { error } = await supabase.auth.signOut()
     if (error) throw error
   }
 
   // Send 6-digit OTP code (no redirect)
+  // IMPORTANT: To send OTP codes instead of magic links, ensure your Supabase email template
+  // uses {{ .Token }} instead of {{ .ConfirmationURL }} in the email body.
+  // Go to: Supabase Dashboard > Authentication > Email Templates > Confirm sign up
   const signInWithOTP = async (email: string) => {
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
         shouldCreateUser: true,
-        // Explicitly do NOT include emailRedirectTo to send OTP code instead of magic link
-      },
-    })
-    if (error) throw error
-  }
-
-  // Send magic link (with redirect)
-  const signInWithMagicLink = async (email: string) => {
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback`,
+        // Do NOT include emailRedirectTo - this ensures OTP code is sent instead of magic link
+        // The email template must use {{ .Token }} to display the 6-digit code
       },
     })
     if (error) throw error
@@ -95,10 +76,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         user,
         session,
         loading,
-        signInWithGoogle,
         signOut,
         signInWithOTP,
-        signInWithMagicLink,
         verifyOTP,
       }}
     >

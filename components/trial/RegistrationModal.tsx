@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { Mail, Chrome, KeyRound } from 'lucide-react'
+import { Mail, KeyRound } from 'lucide-react'
 import {
   Dialog,
   DialogContent,
@@ -25,7 +25,7 @@ export function RegistrationModal({
   open,
   onOpenChange,
 }: RegistrationModalProps) {
-  const { user, signInWithGoogle, signInWithOTP, verifyOTP } = useAuth()
+  const { user, signInWithOTP, verifyOTP } = useAuth()
   const { toast } = useToast()
   const [email, setEmail] = useState('')
   const [otp, setOtp] = useState('')
@@ -96,23 +96,6 @@ export function RegistrationModal({
     }
   }, [otp, isOtpSent, isVerifying, handleVerifyOTP])
 
-  const handleGoogleSignIn = async () => {
-    setIsLoading(true)
-    try {
-      await signInWithGoogle()
-      // Modal will close automatically on successful auth via AuthProvider
-    } catch (error) {
-      toast({
-        title: 'Sign in failed',
-        description:
-          error instanceof Error ? error.message : 'Failed to sign in with Google',
-        variant: 'destructive',
-      })
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
   const handleSendOTP = async () => {
     if (!email.trim()) {
       toast({
@@ -164,29 +147,6 @@ export function RegistrationModal({
         </DialogHeader>
 
         <div className="space-y-4 py-4">
-          {/* Google OAuth */}
-          <Button
-            type="button"
-            onClick={handleGoogleSignIn}
-            disabled={isLoading}
-            className="w-full"
-            size="lg"
-          >
-            <Chrome className="mr-2 h-5 w-5" />
-            Continue with Google
-          </Button>
-
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t" />
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">
-                Or continue with email
-              </span>
-            </div>
-          </div>
-
           {/* Email/OTP Input */}
           <div className="space-y-2">
             <Label htmlFor="email">Email address</Label>
