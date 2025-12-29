@@ -159,9 +159,7 @@ export async function extractTextFromPdf(file: File): Promise<string> {
 
     for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
       const page = await pdf.getPage(pageNum)
-      const textContent = await page.getTextContent({
-        normalizeWhitespace: true,
-      })
+      const textContent = await page.getTextContent()
 
       let pageText = ''
       for (const item of textContent.items) {

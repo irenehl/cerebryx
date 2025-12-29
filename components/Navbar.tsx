@@ -1,8 +1,7 @@
 'use client'
 
-import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { User } from 'lucide-react'
+import { Bell, Flame } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -13,8 +12,15 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useAuth } from '@/providers/AuthProvider'
-import { ThemeToggle } from '@/components/ThemeToggle'
 import { cn } from '@/lib/utils'
+
+const getPageTitle = (pathname: string) => {
+  if (pathname === '/dashboard') return 'Overview'
+  if (pathname.startsWith('/study')) return 'Study'
+  if (pathname.startsWith('/history')) return 'History'
+  if (pathname.startsWith('/settings')) return 'Settings'
+  return 'Dashboard'
+}
 
 export default function Navbar({ isCollapsed }: { isCollapsed: boolean }) {
   const pathname = usePathname()
@@ -34,26 +40,32 @@ export default function Navbar({ isCollapsed }: { isCollapsed: boolean }) {
   return (
     <header
       className={cn(
-        'fixed top-0 right-0 z-20 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 flex-shrink-0 transition-[left] duration-300',
+        'fixed top-0 right-0 z-20 border-b bg-card flex-shrink-0 transition-[left] duration-300',
         isCollapsed
           ? 'left-16'
           : 'left-16 md:left-64'
       )}
     >
       <nav className="flex h-16 items-center justify-between px-6 w-full">
-        <div className="flex items-center gap-4">
-          <Link
-            href="/"
-            className="text-xl font-bold transition-opacity hover:opacity-80"
-          >
-            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              Cerebryx
-            </span>
-          </Link>
+        <div className="flex items-center">
+          <h1 className="text-lg font-semibold text-foreground">
+            {getPageTitle(pathname)}
+          </h1>
         </div>
 
-        <div className="flex items-center gap-2">
-          <ThemeToggle />
+        <div className="flex items-center gap-4">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-9 w-9"
+            aria-label="Notifications"
+          >
+            <Bell className="h-5 w-5" />
+          </Button>
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-md">
+            <Flame className="h-4 w-4 text-orange-500" />
+            <span className="text-sm font-medium text-foreground">12 Day Streak</span>
+          </div>
           <DropdownMenu>
             <DropdownMenuTrigger
               asChild
@@ -62,9 +74,8 @@ export default function Navbar({ isCollapsed }: { isCollapsed: boolean }) {
               <Button
                 variant="ghost"
                 size="sm"
-                className="gap-2 !transition-none !duration-0"
+                className="gap-2 !transition-none !duration-0 h-9"
               >
-                <User className="h-4 w-4" />
                 {user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email?.split('@')[0] || 'Account'}
               </Button>
             </DropdownMenuTrigger>

@@ -31,10 +31,22 @@ const config: Config = {
             transform: 'translateY(0)',
           },
         },
+        fadeInUp: {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' },
+        },
       },
       animation: {
         shimmer: 'shimmer 2s ease-in-out infinite',
         fadeIn: 'fadeIn 1s ease-in-out forwards',
+        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+        'fade-in-up-delay-1': 'fadeInUp 0.8s ease-out 0.2s forwards',
+        'fade-in-up-delay-2': 'fadeInUp 0.8s ease-out 0.4s forwards',
+        float: 'float 6s ease-in-out infinite',
       },
       colors: {
         background: 'hsl(var(--background))',
@@ -81,6 +93,10 @@ const config: Config = {
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))',
         },
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'hero-glow': 'conic-gradient(from 180deg at 50% 50%, #7c3aed 0deg, #0ea5e9 180deg, #14b8a6 360deg)',
       },
     },
   },

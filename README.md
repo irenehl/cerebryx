@@ -1,14 +1,25 @@
-Create a Next.js 15 app for a study timer and quiz application with the following requirements:
+# Cerebryx
 
-## Tech Stack
+Cerebryx is a modern study companion application that transforms reading into active learning through timed reading sessions and AI-generated comprehension quizzes. Built with Next.js 15 and cutting-edge web technologies, it helps students and professionals improve their reading comprehension and retention.
 
-- Next.js 15 with App Router
-- TypeScript (strict mode)
-- Tailwind CSS
-- shadcn/ui components
-- PDF.js (pdfjs-dist) for PDF parsing
-- OpenAI API for question generation
-- next-intl (i18n) setup only
+## Overview
+
+Cerebryx provides a focused, distraction-free environment for studying written content. Users can upload PDF documents or paste text, and the application calculates an optimal reading time based on content length. During the reading session, a countdown timer keeps users focused, and upon completion, an AI-powered quiz is generated to assess comprehension with mixed question types and difficulty levels.
+
+The application features a beautiful dark-mode interface, comprehensive session history tracking, and supports both anonymous and authenticated user experiences. Registered users can save documents, set reading goals, and track their progress over time.
+
+## Technologies Used
+
+- **Next.js 15** - Modern React framework with App Router and server components
+- **TypeScript** - Type-safe development with strict mode enabled
+- **Tailwind CSS** - Utility-first CSS framework for responsive, dark-mode-first design
+- **shadcn/ui** - High-quality, accessible UI component library
+- **OpenAI API** - GPT-4o-mini for intelligent quiz question generation
+- **PDF.js** - Client-side PDF parsing and text extraction
+- **Supabase** - Authentication (Google OAuth, OTP) and database backend
+- **Microsoft Clarity** - User behavior analytics and insights
+- **React Context** - Client-side state management
+- **Lucide React** - Modern icon library
 
 ## Setup Instructions
 
@@ -33,63 +44,86 @@ NEXT_PUBLIC_OPENAI_API_KEY=your_openai_api_key_here
 
 **Important**: Replace `your_openai_api_key_here` with your actual OpenAI API key. The application will automatically use this environment variable instead of requiring manual input.
 
-## Application Features
+## Key Features
 
-### Step 1: Input (Landing Page)
+### Reading Session Management
+- **Multiple Input Methods**: Upload PDF files or paste text directly
+- **Smart Reading Time Calculation**: Automatically estimates reading time based on word count (200 words per minute)
+- **Interactive Timer**: Countdown timer with start/pause controls that runs in the background
+- **Time Management**: Modal notification when reading time expires, with option to continue or proceed
 
-- Input field for OpenAI API key (password type, stored in session only)
-- Two input methods:
-  - File upload button for PDF files
-  - Large textarea for pasting text
-- Submit button to proceed (disabled if no text/file)
-- Calculate reading time: word count / 200 words per minute
-- Show estimated reading time before proceeding
+### AI-Powered Quiz Generation
+- **Intelligent Question Generation**: Uses OpenAI's GPT-4o-mini to create contextually relevant questions
+- **Mixed Question Types**: Multiple-choice (4 options), true/false, and short-answer questions
+- **Difficulty Levels**: Each question is categorized as easy, medium, or hard
+- **Adaptive Question Count**: Generates 1 question per ~100 words (minimum 5, maximum 20 questions)
+- **Customizable Range**: Users can configure the number of questions within the adaptive range
 
-### Step 2: Reading Session
-
-- Display the full text in a scrollable container
-- Show countdown timer (MM:SS format)
-- Timer controls: Start/Pause button
-- Timer runs in background, counting down from calculated reading time
-- When timer reaches 0:
-  - Show modal notification "Time's Up! ⏰"
-  - Allow user to continue reading or proceed
-- "Start Quiz" button to generate questions (calls OpenAI API)
-
-### Step 3: Quiz
-
-- Generate 5-20 questions based on text length (1 question per ~100 words, min 5, max 20)
-- OpenAI prompt structure:
-  - Model: gpt-4o-mini
-  - Mix of question types: multiple-choice (4 options), true/false, short-answer
-  - Each question has difficulty: easy, medium, or hard
-  - Return JSON array with: type, question, options (if applicable), correct answer, difficulty
-- Display questions with:
-  - Question number and difficulty badge
-  - Appropriate input (radio buttons for MC/TF, text input for short answer)
-- Submit button at bottom
-
-### Step 4: Results
-
-- Calculate score based on:
+### Scoring and Feedback
+- **Weighted Scoring System**: 
   - Easy questions = 1 point
   - Medium questions = 2 points
   - Hard questions = 3 points
-- Show:
-  - Large percentage score
-  - Points earned / total points
-  - Success icon
-- "Start New Session" button to reset
+- **Comprehensive Results**: Displays percentage score, points earned vs. total points, and success indicators
+- **Answer Analysis**: Shows correct answers, user responses, and explanations for incorrect answers
 
-## Technical Requirements
+### User Experience
+- **Dark Mode Only**: Beautiful dark gradient interface (zinc-950 to neutral-950) designed for focused study sessions
+- **Responsive Design**: Fully responsive layout that works seamlessly on desktop, tablet, and mobile devices
+- **Accessibility**: Full keyboard navigation, proper ARIA labels, and high contrast ratios
+- **Session History**: Track past study sessions with timestamps, sources, scores, and outcomes
+- **Dashboard**: Overview of recent sessions, statistics, and progress tracking
 
-- All state management with React Context (SessionProvider)
-- Timer uses useEffect with setInterval
-- PDF parsing: Use pdfjs-dist to extract text from uploaded PDFs
-- OpenAI API call with proper error handling
-- No backend - everything runs in browser
-- Optional localStorage for session history (enabled by default, configurable in Settings)
-- Light and dark mode with theme toggle (defaults to dark)
+### Authentication & Data Management
+- **Dual-Mode Operation**: Works anonymously or with user accounts
+- **Supabase Authentication**: Secure login with Google OAuth and OTP (phone/email)
+- **Saved Documents**: Registered users can save documents with tags for later reading
+- **Reading Goals**: Set and track time-based, document-based, and per-document reading goals
+- **Search & Filter**: Find saved documents quickly with tags and search functionality
+
+### Analytics & Insights
+- **Microsoft Clarity Integration**: Comprehensive user behavior tracking and analytics
+- **Session Tracking**: Monitor reading patterns, quiz performance, and engagement metrics
+
+## Architecture Highlights
+
+- **Server Components by Default**: Leverages Next.js 15 App Router for optimal performance
+- **Client-Side Processing**: PDF parsing and quiz generation happen entirely in the browser
+- **No Backend Required (Anonymous Mode)**: Core functionality works without server infrastructure
+- **Type Safety**: Strict TypeScript configuration ensures robust, maintainable code
+- **Component-Based Design**: Modular, reusable components following shadcn/ui conventions
+- **State Management**: React Context API for efficient client-side state handling
+
+## Technical Implementation
+
+### PDF Processing
+- Uses PDF.js for client-side PDF text extraction
+- Handles various PDF formats and edge cases gracefully
+- Provides user feedback for parsing failures
+
+### AI Integration
+- Robust JSON parsing with markdown code fence stripping
+- Error handling for API failures with retry mechanisms
+- Strict prompt engineering for consistent question quality
+
+### Timer System
+- Accurate countdown with `useEffect` and `setInterval`
+- Proper cleanup to prevent memory leaks
+- Background operation that continues even when tab is inactive
+
+### Data Persistence
+- Session-only storage for anonymous users
+- Supabase PostgreSQL for authenticated user data
+- Row Level Security (RLS) policies for data protection
+
+## Design Philosophy
+
+Cerebryx is built with a focus on:
+- **Simplicity**: Clean, uncluttered interface that doesn't distract from studying
+- **Performance**: Fast, responsive interactions with minimal loading times
+- **Accessibility**: Inclusive design that works for all users
+- **Privacy**: User data is handled securely, with session-only API key storage
+- **User Control**: Flexible options for reading time, question count, and study preferences
 
 ## Styling
 
@@ -98,7 +132,7 @@ NEXT_PUBLIC_OPENAI_API_KEY=your_openai_api_key_here
 - Use lucide-react icons: Upload, Clock, Play, BookOpen, CheckCircle
 - Responsive design, max-width container
 - Color scheme: Blue/Indigo primary, Green for success, Red for urgency
-- Light and dark mode with theme toggle in navigation
+- Dark mode only - no theme toggle (dark is the default and only theme)
 
 ## Error Handling
 
@@ -108,9 +142,7 @@ NEXT_PUBLIC_OPENAI_API_KEY=your_openai_api_key_here
 - Alert if OpenAI API call fails
 - Parse JSON response carefully (handle markdown code blocks if present)
 
-The project is now fully implemented with Next.js 15, TypeScript, Tailwind CSS, shadcn/ui components, and PDF.js integration.
-
-## Roadmap: Upcoming Phases (Nice-to-have)
+## Roadmap: Upcoming Phases
 
 These are planned additions. Current app behavior remains as documented above until these are implemented.
 
@@ -138,3 +170,16 @@ These are planned additions. Current app behavior remains as documented above un
   - Replace hardcoded strings with translation calls (e.g., `useTranslations`).
   - Add a language selector using shadcn/ui (e.g., `Select`) and persist preference in a cookie (e.g., `NEXT_LOCALE`).
   - Optional: introduce a `/[locale]` route segment and middleware to handle default-locale routing and detection from the browser.
+
+## Future Enhancements
+
+- Browser extension for quick text selection and practice
+- Enhanced quiz feedback with detailed explanations
+- Advanced analytics and progress visualization
+- Multi-language support (i18n)
+- Collaborative study features
+- Export capabilities for study reports
+
+## Conclusion
+
+Cerebryx demonstrates how modern web technologies can be combined to create a powerful, user-friendly study tool. By leveraging AI for intelligent quiz generation, providing flexible input methods, and maintaining a focus on user experience, it transforms passive reading into active learning. The application showcases best practices in Next.js 15 development, TypeScript type safety, and accessible UI design.
