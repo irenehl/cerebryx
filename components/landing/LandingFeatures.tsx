@@ -56,8 +56,15 @@ function FeatureCard({ icon, title, description, accentColor }: FeatureCardProps
   )
 }
 
+type Feature = {
+  icon: React.ReactNode
+  title: string
+  description: string
+  accentColor: 'primary' | 'secondary' | 'accent' | 'purple' | 'blue' | 'teal'
+}
+
 export default function LandingFeatures() {
-  const features = [
+  const features: Feature[] = [
     {
       icon: <BookOpen className="w-6 h-6" strokeWidth={1.5} />,
       title: 'Smart Reading Timer',
